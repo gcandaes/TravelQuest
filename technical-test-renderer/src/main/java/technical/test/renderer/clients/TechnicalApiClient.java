@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import technical.test.renderer.dto.FlightRecordDto;
 import technical.test.renderer.properties.TechnicalApiProperties;
-import technical.test.renderer.viewmodels.AirportViewModel;
 import technical.test.renderer.viewmodels.FlightViewModel;
 
 @Component
@@ -27,5 +27,15 @@ public class TechnicalApiClient {
                 .uri(technicalApiProperties.getUrl() + technicalApiProperties.getFlightPath())
                 .retrieve()
                 .bodyToFlux(FlightViewModel.class);
+    }
+
+    public Mono<FlightRecordDto> createFlight(FlightRecordDto flightRecord) {
+
+        return webClient
+                .post()
+                .uri(technicalApiProperties.getUrl() + technicalApiProperties.getFlightPath())
+                .bodyValue(flightRecord)
+                .retrieve()
+                .bodyToMono(FlightRecordDto.class);
     }
 }

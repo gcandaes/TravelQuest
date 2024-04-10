@@ -11,4 +11,5 @@ public class TechnicalApiProperties {
     private String url;
     private String basePath;
     private String flightPath;
+
 }

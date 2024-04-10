@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import technical.test.api.dto.FlightRecordDto;
 import technical.test.api.facade.FlightFacade;
 import technical.test.api.record.FlightRecord;
 import technical.test.api.representation.FlightRepresentation;
@@ -26,4 +27,13 @@ public class FlightEndpoint {
     public Mono<FlightRecord> createFlight(@RequestBody FlightRecord flightRecord){
         return flightFacade.createFlight(flightRecord);
     }
+
+/*    @PostMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Mono<FlightRecord> createFlight(@RequestBody FlightRecordDto flightRecord){
+        System.out.println("coucou");
+        return null;
+        //return flightFacade.createFlight(flightRecord);
+    }*/
 }

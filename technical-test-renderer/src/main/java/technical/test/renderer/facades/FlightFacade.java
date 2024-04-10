@@ -2,6 +2,8 @@ package technical.test.renderer.facades;
 
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import technical.test.renderer.dto.FlightRecordDto;
 import technical.test.renderer.services.FlightService;
 import technical.test.renderer.viewmodels.FlightViewModel;
 
@@ -17,8 +19,8 @@ public class FlightFacade {
     public Flux<FlightViewModel> getFlights() {
         return this.flightService.getFlights();
     }
-/*    public Mono<FlightRecord> createFlight(FlightRecordDto flightRecordDto) {
+    public Mono<FlightRecordDto> createFlight(FlightRecordDto flightRecordDto) {
         return flightService.createFlight(flightRecordDto);
-    }*/
+    }
 
 }

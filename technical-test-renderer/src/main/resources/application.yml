@@ -12,4 +12,3 @@ webclient:
       url: http://localhost:${webclient.api.technical.port}
       base-path: /
       flight-path: /flight
-

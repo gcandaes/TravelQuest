@@ -12,10 +12,37 @@ TravelQuest est une application de réservation de voyages qui offre une expéri
 1. **Impossible de lancer l'API**
    - **Description :** Un développeur frauduleux a cassé l'API sans aucun scrupule.
    - **Tâche :** Trouver le problème et le réparer.
+   - **Solution :** 
+
+j'ai copié l'erreur sur google : 
+java.lang.NoClassDefFoundError: jakarta/servlet/ServletException
+je suis allé sur stackoverflow : 
+https://stackoverflow.com/questions/74710946/java-lang-noclassdeffounderror-jakarta-servlet-http-httpservletrequest
+premier resultat : ajouter la dépendence manquante. 
+Je suis donc allé voir dans le pom.xml et en effet, cette dépendance manquait.
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
 2. **Impossible de récupérer les résultats de nos vols**
    - **Description :** Un ami du premier développeur frauduleux n'a pas testé son code, nous n'arrivons à récupérer les informations de vol
    - **Tâche :** Réparer la récupération des vols
+   - **Solution :**
+
+com.mongodb.MongoQueryException: Command failed with error 2 (BadValue): 'Field 'locale' is invalid
+
+en regardant sur google https://www.mongodb.com/community/forums/t/getting-this-error-while-accessing-collection/234538/9
+
+j'ai pu remarqué qu'il y avait une erreur de syntaxe dans la classe AirportRecord.java 
+@Document(collection = "airport")
+et non "collation"
+
+Grace à Postman, je peux donc communiquer avec le endpoint deja créé
+operation GET : http://localhost:8086/flight
+
+cela permet de récuperer les informations des vols
 
 ## Partie 2: Évolutions Éclair
 
@@ -38,6 +65,9 @@ TravelQuest est une application de réservation de voyages qui offre une expéri
 1. **Problème d'affichage des tarifs :**
     - **Description :** Certains tarifs ne s'affichent pas correctement sur la page de réservation.
     - **Tâche :** Corrigez le problème d'affichage pour assurer la clarté et la précision des tarifs.
+    - **Solution :**
+
+Premierement dans index.html, à la ligne 93 j'ai du supprimer flight.photo puisque cette propriete n'existe pas. Ainsi j'ai pu lancer http://localhost:8087/
 
 2. **Lenteur de chargement des images :**
     - **Description :** Les images des destinations mettent trop de temps à charger, affectant l'expérience utilisateur.

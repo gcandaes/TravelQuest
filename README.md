@@ -49,6 +49,48 @@ cela permet de récuperer les informations des vols
 1. **Créer des vols**
    - **Description :** Permettre de créer des vols dans un espace d'administration (pas besoin de la sécuriser)
    - **Tâche :** Avoir un endpoint qui permet l'insertion des vols en base
+   - **Solution :**
+  
+Depuis postman, j'ai créé une request POST http://localhost:8086/flight. Avec comme body un document json de type : 
+{
+    "id":"e9205fed-edfa-49e8-96d9-5a835c0a91ee",
+   "departure":"2024-11-09T17:00:00",
+   "arrival":"2024-11-10T05:00:00",
+   "price":140.5,
+   "origin":"LAX",
+   "destination":"PEK",
+   "image":"https://www.hdwallpapers.in/download/high_resolution_flying_eagle_4k_8k_hd-3840x2160789456.jpg"
+}
+Ceci comprend toutes les propriétés d'un Flight puisque c'est ceci qu'on veut enregistrer.
+
+Cela permet d'appelé le endpoint préalablement créé. 
+FlightEndpoint.java
+
+    @PostMapping(
+            path ="",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Mono<FlightRecord> createFlight(@RequestBody FlightRecord flightRecord){
+        return flightFacade.createFlight(flightRecord);
+    }
+
+Pour suivre la même logique que l'endpoint qui permet de récupérer les vols, on passe par FlightFacade.java : 
+
+      public Mono<FlightRecord> createFlight(FlightRecord flightRecord) {
+        return flightService.createFlight(flightRecord);
+    }
+
+Enfin, dans FlightService.java
+
+    public Mono<FlightRecord> createFlight(FlightRecord flightRecord){
+        return flightRepository.save(flightRecord);
+    }
+
+Cela permet donc d'enregistrer notre vol en base de données.
+Ceci peut être facilement verifiable lorsque l'on appelle l'endpoint permettant de récupérer tous les vols. Ou alors en passant par MongoCompass qui permet de visualiser les enregistrements de notre bdd.
+Une fois le backend demarré, on y accede en se connectant avec l'url localhost:27017, auchan-tech-test est le nom de la base et dans la collection Flight nous pouvons voir tous nos documents dont ceux que l'on vient de créer.
+
 
 2. **Rajouter des filtres**
    - **Description :** Permettre à l'utilisateur de trier les résultats par prix ou par localisation.

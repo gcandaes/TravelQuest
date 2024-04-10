@@ -15,8 +15,20 @@ import technical.test.api.representation.FlightRepresentation;
 public class FlightEndpoint {
     private final FlightFacade flightFacade;
 
-    @GetMapping
+/*    @GetMapping
     public Flux<FlightRepresentation> getAllFlights() {
+        return flightFacade.getAllFlights();
+    }*/
+
+    @GetMapping
+    public Flux<FlightRepresentation> getAllFlights(@RequestParam(required = false) String sortBy) {
+        if (sortBy != null && !sortBy.isEmpty()) {
+            if (sortBy.equals("price")) {
+                return flightFacade.getAllFlightsSortedByPrice();
+            } else if (sortBy.equals("location")) {
+                return flightFacade.getAllFlightsSortedByOrigin();
+            }
+        }
         return flightFacade.getAllFlights();
     }
 

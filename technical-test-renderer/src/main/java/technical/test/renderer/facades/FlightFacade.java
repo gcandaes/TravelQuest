@@ -17,4 +17,8 @@ public class FlightFacade {
     public Flux<FlightViewModel> getFlights() {
         return this.flightService.getFlights();
     }
+/*    public Mono<FlightRecord> createFlight(FlightRecordDto flightRecordDto) {
+        return flightService.createFlight(flightRecordDto);
+    }*/
+
 }

@@ -1,6 +1,7 @@
 package technical.test.api.representation;
 
 import lombok.Data;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,5 +14,11 @@ public class FlightRepresentation {
     private double price;
     private AirportRepresentation origin;
     private AirportRepresentation destination;
+
+    @Cacheable("flightImages")
+    public String getImage() {
+        return image;
+    }
+
     private String image;
 }

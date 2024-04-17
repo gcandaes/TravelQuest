@@ -16,11 +16,16 @@ public class FlightFacade {
         this.flightService = flightService;
     }
 
-    public Flux<FlightViewModel> getFlights() {
-        return this.flightService.getFlights();
+    public Flux<FlightViewModel> getFlights(String size) {
+        return this.flightService.getFlights(size);
     }
-    public Mono<FlightRecordDto> createFlight(FlightRecordDto flightRecordDto) {
-        return flightService.createFlight(flightRecordDto);
+    public void createFlight(FlightRecordDto flightRecordDto) {
+         flightService.createFlight(flightRecordDto);
     }
+
+    public Mono<FlightViewModel> getFlight(String flightId) {
+        return this.flightService.getFlight(flightId);
+    }
+
 
 }

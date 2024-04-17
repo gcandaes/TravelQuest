@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import technical.test.renderer.dto.FlightRecordDto;
 import technical.test.renderer.facades.FlightFacade;
@@ -22,9 +19,19 @@ public class TechnicalController {
     @Autowired
     private FlightFacade flightFacade;
 
+    @GetMapping("/flight/{flightId}")
+    public Mono<String> getFlight(final Model model,
+                                  @RequestParam(required = false) String size,
+                                  @PathVariable String flightId) {
+        model.addAttribute("flight", this.flightFacade.getFlight(flightId));
+
+        return Mono.just("pages/flightDetails");
+    }
+
     @GetMapping
-    public Mono<String> getMarketPlaceReturnCouponPage(final Model model) {
-        model.addAttribute("flights", this.flightFacade.getFlights());
+    public Mono<String> getFlights(final Model model, @RequestParam(required = false) String size) {
+        model.addAttribute("flights", this.flightFacade.getFlights(size));
+
         return Mono.just("pages/index");
     }
 

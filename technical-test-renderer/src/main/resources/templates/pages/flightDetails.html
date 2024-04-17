@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" layout:decorate="~{decorators/master}"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
+<html lang="fr"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recherche de Vols</title>
+    <title>Details du vol</title>
     <style>
         body {
             margin: 0;
@@ -74,14 +73,13 @@
 </head>
 <body>
 <header>
-    <h1>Recherche de Vols</h1>
+    <h1>Details du vol</h1>
 </header>
 
 <section>
-    <!-- Contenu de la recherche de vols -->
-    <h2>Bienvenue sur notre site de recherche de vols</h2>
-    <p>Commencez votre aventure en trouvant les meilleurs vols disponibles.</p>
-    <!-- Ajoutez ici le formulaire de recherche de vols ou d'autres éléments pertinents -->
+    <a id="backLink" href="javascript:history.back()">Retour à la liste des vols</a>
+
+    <h2>Bienvenue sur les informations du vol</h2>
     <ul>
         <table class="display nowrap" style="width:100%" id="flightsTable" table table-bordered table-striped>
             <thead>
@@ -92,42 +90,20 @@
                 <th scope="col" class="dep-date-col" data-sortable="true" >date depart</th>
                 <th scope="col" class="arr-date-col" data-sortable="true" >date arrivee</th>
                 <th scope="col">Photo</th>
-                <th scope="col">Details du vol</th>
             </tr>
             </thead>
-            <tr th:each="flight : ${flights}">
                 <th th:text="${flight.origin.name}"></th>
                 <th th:text="${flight.destination.name}"></th>
                 <th th:text="${flight.price}"></th>
                 <th th:text="${flight.departure}"></th>
                 <th th:text="${flight.arrival}"></th>
                 <th><img th:src="${flight.image}" th:loading="lazy"></th>
-                <th><a th:href="@{flight/{variable}(variable=${flight.id})}">details</a></th>
-
-            </tr>
-
         </table>
     </ul>
-
-
-
-
 </section>
-
 <footer>
     <p>&copy; 2023 Recherche de Vols. Tous droits réservés.</p>
 </footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js" type="text/javascript"></script>
-<script>
-    $(document).ready(function () {
-<!--
-        var resultsPerPage = parseInt(/*[[${resultsPerPage}]]*/); // Récupère la valeur de la variable depuis le modèle
--->
 
-        $("#flightsTable").DataTable({
-        });
-    })
-</script>
 </body>
 </html>

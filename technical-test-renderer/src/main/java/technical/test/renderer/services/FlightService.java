@@ -15,11 +15,17 @@ public class FlightService {
         this.technicalApiClient = technicalApiClient;
     }
 
-    public Flux<FlightViewModel> getFlights() {
-        return this.technicalApiClient.getFlights();
+    public Flux<FlightViewModel> getFlights(String size) {
+        return this.technicalApiClient.getFlights(size);
     }
 
-    public Mono<FlightRecordDto> createFlight(FlightRecordDto flightRecordDto) {
-        return this.technicalApiClient.createFlight(flightRecordDto);
+    public void createFlight(FlightRecordDto flightRecordDto) {
+        this.technicalApiClient.createFlight(flightRecordDto);
     }
+
+    public Mono<FlightViewModel> getFlight(String flightId) {
+        return this.technicalApiClient.getFlight(flightId);
+    }
+
+
 }
